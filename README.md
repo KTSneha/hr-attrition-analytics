@@ -1,49 +1,76 @@
-# HR Employee Attrition Analytics
+<div align="center">
 
-An end-to-end data analytics project that pipelines raw HR data through cleaning, a live cloud database, SQL analysis, and a machine learning model — all deployed as an interactive web app.
+# 👥 HR Employee Attrition Analytics
 
-**Live App:** https://hr-attrition-analytics-qz2sjldqycpy3viu7p29kf.streamlit.app/
+### An end-to-end data analytics pipeline — from raw data to a live, ML-powered web app
 
-## Overview
+[![Streamlit App](https://img.shields.io/badge/🚀_Live_App-Streamlit-FF4B4B?style=for-the-badge)](https://hr-attrition-analytics-qz2sjldqycpy3viu7p29kf.streamlit.app/)
+[![Python](https://img.shields.io/badge/Python-3.14-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://supabase.com)
+[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-ML_Model-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
 
-This project analyzes employee attrition patterns using the IBM HR Analytics Employee Attrition dataset (1,470 employees) and builds a predictive model to flag employees at risk of leaving. The final product is a two-page Streamlit dashboard: one page for exploratory analytics, and one for live, individual attrition-risk scoring.
+**[🔗 View Live App](https://hr-attrition-analytics-qz2sjldqycpy3viu7p29kf.streamlit.app/)**
 
-## Tech Stack
+</div>
 
-- **Python** (Pandas) — data cleaning and feature engineering
-- **PostgreSQL** (hosted on Supabase) — cloud data warehouse
-- **SQL** — attrition analysis queries (department, tenure, overtime, cost-of-attrition)
-- **Scikit-learn** — logistic regression risk model
-- **Streamlit** — interactive web app, deployed on Streamlit Community Cloud
-- **Plotly** — dashboard visualizations
+---
 
-## Pipeline
+## 📌 Overview
 
-1. **ETL**: Raw CSV cleaned in Python — dropped constant columns, engineered readable labels for ordinal fields, created age/tenure buckets and a binary attrition flag.
-2. **Storage**: Cleaned dataset loaded into a PostgreSQL database on Supabase.
-3. **Analysis**: SQL queries computed attrition rate by department, tenure group, overtime status, and job role.
-4. **Modeling**: A logistic regression model (scaled features, balanced class weights to handle the 84/16 class imbalance) predicts attrition risk per employee.
-5. **App**: A Streamlit app connects live to the database for the dashboard and loads the saved model for real-time predictions.
+This project analyzes employee attrition patterns using the **IBM HR Analytics Employee Attrition** dataset (1,470 employees) and builds a predictive model to flag employees at risk of leaving. The final product is a two-page Streamlit dashboard: one page for exploratory analytics, and one for **live, individual attrition-risk scoring**.
 
-## Key Findings
+## 🛠️ Tech Stack
 
-- **Overall attrition rate: 16.1%** (237 of 1,470 employees)
-- **Sales has the highest attrition** (20.6%), followed by HR (19.1%); R&D is lowest (13.8%)
-- **The first 2 years are the highest-risk period**: 29.8% attrition vs. single digits/low teens after 6+ years
-- **OverTime is the strongest driver**: employees working overtime leave at ~3x the rate of those who don't (30.5% vs. 10.4%)
-- **Cost varies sharply by role**: Managers and Research Directors who leave cost far more per head than Lab Technicians or Sales Representatives, despite lower headcount loss
+| Layer | Technology |
+|---|---|
+| **Language** | Python (Pandas, NumPy) |
+| **Database** | PostgreSQL (hosted on Supabase) |
+| **Analysis** | SQL |
+| **Machine Learning** | Scikit-learn (Logistic Regression) |
+| **Visualization** | Plotly |
+| **Web App** | Streamlit (deployed on Streamlit Community Cloud) |
 
-## Model Performance
+## 🔄 Pipeline
 
-- **ROC-AUC: 0.81**
-- **Recall (attrition class): 77%** — correctly identifies most employees who are likely to leave, prioritizing catching at-risk employees over minimizing false alarms (appropriate for an HR early-warning use case)
+```
+Raw CSV → Python ETL → PostgreSQL (Supabase) → SQL Analysis → ML Model → Streamlit App
+```
 
-## App Features
+1. **ETL** — Raw CSV cleaned in Python: dropped constant columns, engineered readable labels for ordinal fields, created age/tenure buckets and a binary attrition flag.
+2. **Storage** — Cleaned dataset loaded into a PostgreSQL database on Supabase.
+3. **Analysis** — SQL queries computed attrition rate by department, tenure group, overtime status, and job role.
+4. **Modeling** — A logistic regression model (scaled features, balanced class weights) predicts attrition risk per employee.
+5. **App** — A Streamlit app connects live to the database for the dashboard and loads the saved model for real-time predictions.
 
-- **Dashboard**: KPI summary + four interactive charts (department, tenure, overtime, job role)
-- **Risk Predictor**: Select any employee to see their live predicted attrition risk (%) with a color-coded risk level
+## 📊 Key Findings
 
-## Running Locally
+| Insight | Finding |
+|---|---|
+| 📉 Overall attrition rate | **16.1%** (237 of 1,470 employees) |
+| 🏢 Highest-risk department | **Sales** — 20.6% attrition |
+| ⏳ Highest-risk tenure | **0–2 years** — 29.8% attrition |
+| ⏰ Overtime impact | Employees working overtime leave at **~3x the rate** (30.5% vs. 10.4%) |
+| 💰 Cost hotspot | Managers & Research Directors who leave cost far more per head than junior roles, despite lower headcount loss |
+
+## 🎯 Model Performance
+
+<div align="center">
+
+| Metric | Score |
+|---|---|
+| **ROC-AUC** | 0.81 |
+| **Recall (Attrition = Yes)** | 77% |
+
+</div>
+
+The model prioritizes **catching at-risk employees** (high recall) over minimizing false alarms — the right trade-off for an HR early-warning tool, where missing a likely departure is costlier than a false positive.
+
+## ✨ App Features
+
+- **📊 Dashboard** — KPI summary + four interactive charts (department, tenure, overtime, job role)
+- **🔮 Risk Predictor** — Select any employee to see their live predicted attrition risk (%) with a color-coded risk level (🟢 Low / 🟡 Moderate / 🔴 High)
+
+## 🚀 Running Locally
 
 ```bash
 git clone https://github.com/KTSneha/hr-attrition-analytics.git
@@ -61,6 +88,14 @@ Then run:
 streamlit run app.py
 ```
 
-## Dataset
+## 📁 Dataset
 
-[IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset) (Kaggle)
+[IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset) — Kaggle
+
+---
+
+<div align="center">
+
+**Built by [Sneha Timmavvagol](https://linkedin.com/in/sneha-timmavvagol)**
+
+</div>
